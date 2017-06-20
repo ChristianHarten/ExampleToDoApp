@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ToDo</string>
+    <string name="title_label">Titel eingeben</string>
+    <string name="description_label">Beschreibung eingeben</string>
+    <string name="date_label">Datum eingeben</string>
+    <string name="title_hint">Titel eingeben...</string>
+    <string name="description_hint">Beschreibung eingeben...</string>
+    <string name="date_hint">Datum eingeben...</string>
+    <string name="save_btn_text">Speichern</string>
+    <string name="reset_btn_text">Reset</string>
+    <string name="count_btn_text">Anzahl</string>
+    <string name="showall_btn_text">Alle</string>
+</resources>
