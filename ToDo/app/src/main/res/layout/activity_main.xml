@@ -38,7 +38,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:hint="@string/date_hint"/>
+        android:focusable="false"
+        android:hint="@string/date_hint"
+        android:onClick="chooseDate"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/save_btn_text"/>
+            android:text="@string/save_btn_text"
+            android:onClick="saveEntry"/>
         <Button
             android:id="@+id/reset_btn"
             android:layout_width="match_parent"
@@ -71,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/showall_btn_text"/>
+            android:text="@string/showall_btn_text"
+            android:onClick="showAllEntries"/>
     </LinearLayout>
 </LinearLayout>
