@@ -1,20 +1,15 @@
 package de.hochschule_trier.todo;
 
 import android.app.DatePickerDialog;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private EditText mTitleInput, mDescrInput, mDateInput;
-    private ToDoDatabaseHelper db;
+    private ToDoDatabaseHelper mDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         mDescrInput = (EditText) findViewById(R.id.tododescription);
         mDateInput = (EditText) findViewById(R.id.tododate);
 
-        db = new ToDoDatabaseHelper(this);
+        mDB = new ToDoDatabaseHelper(this);
     }
 
     public void showAllEntries(View v) {
@@ -55,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void countEntries(View v) {
-        int entryCount = db.getToDoCount();
+        int entryCount = mDB.getToDoCount();
         if (entryCount == -1) {
             Toast.makeText(this, "Fehler beim Zählen der Einträge.", Toast.LENGTH_SHORT).show();
         }
@@ -86,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             }
             date = sb.toString();
         }
-        if (db.addToDoEntry(title, descr, Long.valueOf(date))) {
+        if (mDB.addToDoEntry(title, descr, Long.valueOf(date))) {
             Toast.makeText(this, "Eintrag erfolgreich hinzugefügt.", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -96,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void deleteEntries(View v) {
-        if (db.deleteAll()) {
+        if (mDB.deleteAll()) {
             Toast.makeText(this, "Alle Einträge gelöscht.", Toast.LENGTH_SHORT).show();
         }
         else {
