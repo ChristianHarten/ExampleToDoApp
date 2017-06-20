@@ -57,7 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/reset_btn_text"/>
+            android:text="@string/reset_btn_text"
+            android:onClick="deleteEntries"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,7 +69,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/count_btn_text"/>
+            android:text="@string/count_btn_text"
+            android:onClick="countEntries"/>
         <Button
             android:id="@+id/showall_btn"
             android:layout_width="match_parent"

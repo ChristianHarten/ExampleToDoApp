@@ -3,8 +3,7 @@ package de.hochschule_trier.todo;
 import android.provider.BaseColumns;
 
 public final class ToDoContract {
-    private ToDoContract(){};
-    private static final String TEST = "test";
+    private ToDoContract(){}
     public static class ToDo implements BaseColumns {
         public static String TABLE_NAME = "todo";
         public static String DATE_FIELD_NAME = "date";

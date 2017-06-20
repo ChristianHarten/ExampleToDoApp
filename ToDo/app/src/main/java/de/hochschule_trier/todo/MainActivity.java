@@ -8,6 +8,7 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -17,7 +18,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    //DatePicker and Listener
+    // DatePicker and Listener
     private final Calendar mCal = Calendar.getInstance();
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -33,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.GERMAN);
         mDateInput.setText(sdf.format(mCal.getTime()));
     }
+
     private EditText mTitleInput, mDescrInput, mDateInput;
+    private ToDoDatabaseHelper db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +46,23 @@ public class MainActivity extends AppCompatActivity {
         mTitleInput = (EditText) findViewById(R.id.todotitle);
         mDescrInput = (EditText) findViewById(R.id.tododescription);
         mDateInput = (EditText) findViewById(R.id.tododate);
+
+        db = new ToDoDatabaseHelper(this);
     }
 
     public void showAllEntries(View v) {
 
     }
 
-    public void getTableCount(View v) {
-        SQLiteDatabase db = new ToDoDatabaseHelper(this).getReadableDatabase();
+    public void countEntries(View v) {
+        int entryCount = db.getToDoCount();
+        if (entryCount == -1) {
+            Toast.makeText(this, "Fehler beim Zählen der Einträge.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            String count = String.valueOf(entryCount);
+            Toast.makeText(this, count , Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void saveEntry(View v) {
@@ -73,17 +86,28 @@ public class MainActivity extends AppCompatActivity {
             }
             date = sb.toString();
         }
-        doInsert(title, descr, Long.valueOf(date));
+        if (db.addToDoEntry(title, descr, Long.valueOf(date))) {
+            Toast.makeText(this, "Eintrag erfolgreich hinzugefügt.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "Fehler beim Hinzufügen des Eintrags.", Toast.LENGTH_SHORT).show();
+        }
+        resetInputs();
     }
 
-    private void doInsert(String title, String descr, Long date) {
-        SQLiteDatabase db = new ToDoDatabaseHelper(this).getWritableDatabase();
-        ContentValues vals = new ContentValues();
-        vals.put(ToDoContract.ToDo.DATE_FIELD_NAME, new Date(date).toString());
-        vals.put(ToDoContract.ToDo.TITLE_FIELD_NAME, title);
-        vals.put(ToDoContract.ToDo.DESCR_FIELD_NAME, descr);
-        db.insert(ToDoContract.ToDo.TABLE_NAME, null, vals);
-        db.close();
+    public void deleteEntries(View v) {
+        if (db.deleteAll()) {
+            Toast.makeText(this, "Alle Einträge gelöscht.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "Fehler beim Löschen der Einträge.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void resetInputs() {
+        mTitleInput.setText("");
+        mDescrInput.setText("");
+        mDateInput.setText("");
     }
 
     public void chooseDate(View v) {
