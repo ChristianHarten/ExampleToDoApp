@@ -42,10 +42,12 @@
         android:hint="@string/date_hint"
         android:onClick="chooseDate"/>
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/save_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,6 +55,7 @@
             android:text="@string/save_btn_text"
             android:onClick="saveEntry"/>
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/reset_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,10 +64,12 @@
             android:onClick="deleteEntries"/>
     </LinearLayout>
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/count_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,6 +77,7 @@
             android:text="@string/count_btn_text"
             android:onClick="countEntries"/>
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/showall_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,4 +85,8 @@
             android:text="@string/showall_btn_text"
             android:onClick="showAllEntries"/>
     </LinearLayout>
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
 </LinearLayout>

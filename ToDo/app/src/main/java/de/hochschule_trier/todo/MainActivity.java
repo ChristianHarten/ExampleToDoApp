@@ -1,15 +1,22 @@
 package de.hochschule_trier.todo;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,7 +53,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showAllEntries(View v) {
+        List<String> results = mDB.readAll();
+        for (String r : results) {
+            Toast.makeText(this, r, Toast.LENGTH_SHORT).show();
 
+
+        }
+        /*
+
+        */
     }
 
     public void countEntries(View v) {
